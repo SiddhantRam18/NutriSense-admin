@@ -19,7 +19,7 @@ services:
       dockerfile: FastAPI_Backend/Dockerfile
     image: backend:latest
     ports:
-      - 8080:8080
+      - 8080:7860
     networks:
       - project_network
     volumes:

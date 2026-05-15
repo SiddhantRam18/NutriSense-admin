@@ -35,9 +35,9 @@ class PredictionIn(BaseModel):
 
 class Recipe(BaseModel):
     Name: str
-    CookTime: str
-    PrepTime: str
-    TotalTime: str
+    CookTime: str | int
+    PrepTime: str | int
+    TotalTime: str | int
     RecipeIngredientParts: list[str]
     Calories: float
     FatContent: float
