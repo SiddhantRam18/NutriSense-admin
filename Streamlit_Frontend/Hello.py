@@ -44,33 +44,16 @@ custom_css = """
         background: transparent;
     }
 
-    /* Equal-height columns */
-    [data-testid="stHorizontalBlock"] {
-        align-items: stretch !important;
+    .hero-row {
+        display: flex;
+        gap: 2rem;
+        align-items: stretch;
+        width: 100%;
     }
 
-    [data-testid="stColumn"] {
-        display: flex !important;
-        flex-direction: column !important;
-    }
-
-    [data-testid="stColumn"] > div,
-    [data-testid="stColumn"] > div > div,
-    [data-testid="stColumn"] > div > div > div,
-    [data-testid="stColumn"] [data-testid="stVerticalBlock"] {
-        flex: 1 !important;
-        display: flex !important;
-        flex-direction: column !important;
-    }
-
-    [data-testid="stColumn"] [data-testid="stMarkdownContainer"] {
-        flex: 1 !important;
-        display: flex !important;
-        flex-direction: column !important;
-    }
-
-    .glass-panel {
-        flex: 1 !important;
+    .hero-row .glass-panel {
+        flex: 1;
+        min-width: 0;
     }
 
     [data-testid="stToolbar"] {
@@ -411,11 +394,9 @@ st.markdown(custom_css, unsafe_allow_html=True)
 
 st.markdown("<div style='height: 2rem;'></div>", unsafe_allow_html=True)
 
-hero_left, hero_right = st.columns(2, gap="large")
-
-with hero_left:
-    st.markdown(
-        """
+st.markdown(
+    """
+    <div class="hero-row">
         <div class="glass-panel">
             <div class="glass-content">
                 <div class="eyebrow"><span class="eyebrow-mark"></span>Nutrisense</div>
@@ -437,13 +418,6 @@ with hero_left:
                 </div>
             </div>
         </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-with hero_right:
-    st.markdown(
-        """
         <div class="glass-panel">
             <div class="glass-content">
                 <div class="eyebrow"><span class="eyebrow-mark"></span>Nutrition AI</div>
@@ -453,9 +427,10 @@ with hero_right:
                 </div>
             </div>
         </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
 st.markdown('<h2 class="section-title">Key Features</h2>', unsafe_allow_html=True)
 
