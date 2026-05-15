@@ -68,15 +68,7 @@ def load_dataset():
             data_path = '/app/Data/dataset_small.csv.gz'
             if os.path.exists(data_path):
                 print("Loading dataset...")
-                nutrition_cols = [
-                    'Calories','FatContent','SaturatedFatContent','CholesterolContent',
-                    'SodiumContent','CarbohydrateContent','FiberContent','SugarContent','ProteinContent'
-                ]
-                dataset = pd.read_csv(
-                    data_path,
-                    compression='gzip',
-                    dtype={col: 'float32' for col in nutrition_cols}
-                )
+                dataset = pd.read_csv(data_path, compression='gzip')
                 dataset_loaded = True
                 print(f"Dataset loaded: {dataset.shape}, memory: {dataset.memory_usage(deep=True).sum()//1024//1024} MB")
                 gc.collect()
