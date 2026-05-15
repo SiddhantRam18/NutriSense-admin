@@ -1,5 +1,8 @@
 import requests
+import streamlit as st
 import json
+
+BACKEND_URL = st.secrets.get("backend_url", "http://localhost:8080")
 
 class Generator:
     def __init__(self,nutrition_input:list,ingredients:list=[],params:dict={'n_neighbors':5,'return_distance':False}):
@@ -13,10 +16,22 @@ class Generator:
         self.params=params
 
     def generate(self,):
-        request={
-            'nutrition_input':self.nutrition_input,
-            'ingredients':self.ingredients,
-            'params':self.params
-        }
-        response=requests.post(url='http://backend:8080/predict/',data=json.dumps(request))
-        return response
+        try:
+            payload={
+                'nutrition_input':self.nutrition_input,
+                'ingredients':self.ingredients,
+                'params':self.params
+            }
+            response=requests.post(
+                f"{BACKEND_URL}/predict/",
+                json=payload,
+                timeout=30
+            )
+            if response.status_code == 200:
+                return response
+            else:
+                st.error(f"Backend error: {response.status_code}")
+                return None
+        except Exception as e:
+            st.error(f"Failed to connect to backend: {str(e)}")
+            return None
