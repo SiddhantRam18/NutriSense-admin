@@ -65,7 +65,7 @@ def load_dataset():
             return dataset
             
         try:
-            data_path = '/app/Data/dataset.csv'
+            data_path = '/app/Data/dataset_small.csv.gz'
             if os.path.exists(data_path):
                 print("Loading dataset...")
                 nutrition_cols = [
@@ -77,14 +77,12 @@ def load_dataset():
                     compression='gzip',
                     dtype={col: 'float32' for col in nutrition_cols}
                 )
-                # Sample 25% to stay within Render free tier memory limit (512 MB)
-                dataset = dataset.sample(frac=0.25, random_state=42).reset_index(drop=True)
                 dataset_loaded = True
                 print(f"Dataset loaded: {dataset.shape}, memory: {dataset.memory_usage(deep=True).sum()//1024//1024} MB")
                 gc.collect()
                 return dataset
             else:
-                print(f"Warning: Dataset not found at {data_path}")
+                print(f"Warning: Dataset not found at {data_path} — ensure dataset_small.csv.gz is in /app/Data/")
                 dataset_loaded = True
                 return None
         except Exception as e:
