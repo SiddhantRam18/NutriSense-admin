@@ -69,6 +69,7 @@ def load_dataset():
             if os.path.exists(data_path):
                 print("Loading dataset...")
                 dataset = pd.read_csv(data_path, compression='gzip')
+                dataset = dataset[dataset['Calories'] > 0].reset_index(drop=True)
                 dataset_loaded = True
                 print(f"Dataset loaded: {dataset.shape}")
                 gc.collect()
