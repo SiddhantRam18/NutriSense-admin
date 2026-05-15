@@ -68,12 +68,19 @@ def load_dataset():
             data_path = '/app/Data/dataset.csv'
             if os.path.exists(data_path):
                 print("Loading dataset...")
-                dataset = pd.read_csv(data_path, compression='gzip')
-                # Optimize memory - convert string columns to category
-                for col in dataset.select_dtypes(include=['object']).columns:
-                    dataset[col] = dataset[col].astype('category')
+                nutrition_cols = [
+                    'Calories','FatContent','SaturatedFatContent','CholesterolContent',
+                    'SodiumContent','CarbohydrateContent','FiberContent','SugarContent','ProteinContent'
+                ]
+                dataset = pd.read_csv(
+                    data_path,
+                    compression='gzip',
+                    dtype={col: 'float32' for col in nutrition_cols}
+                )
+                # Sample 25% to stay within Render free tier memory limit (512 MB)
+                dataset = dataset.sample(frac=0.25, random_state=42).reset_index(drop=True)
                 dataset_loaded = True
-                print(f"Dataset loaded successfully: {dataset.shape}")
+                print(f"Dataset loaded: {dataset.shape}, memory: {dataset.memory_usage(deep=True).sum()//1024//1024} MB")
                 gc.collect()
                 return dataset
             else:
