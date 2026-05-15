@@ -103,17 +103,18 @@ custom_css = """
     }
 
     .glass-panel {
-        min-height: 420px;
+        min-height: 360px;
         height: auto;
         border-radius: 28px;
-        padding: 2.65rem;
+        padding: clamp(1.4rem, 2.5vw, 2.65rem);
         display: flex;
         align-items: stretch;
     }
 
     .feature-card {
-        overflow: hidden;
-        height: 360px;
+        overflow: visible;
+        height: auto;
+        min-height: 260px;
         border-radius: 22px;
         padding: 2.4rem;
         margin: 1rem 0;
@@ -223,19 +224,18 @@ custom_css = """
 
     .feature-card h3 {
         color: #f8fafc;
-        font-size: 1.55rem;
-        line-height: 1.18;
-        min-height: 3.7rem;
+        font-size: clamp(1.1rem, 1.5vw, 1.55rem);
+        line-height: 1.25;
+        min-height: unset;
         margin: 0 0 1rem;
-        display: flex;
-        align-items: flex-start;
+        word-break: break-word;
     }
 
     .feature-card p {
         color: #d1d5db;
         font-size: 1rem;
         margin: 0;
-        max-width: 28rem;
+        max-width: 100%;
     }
 
     .nav-link,
@@ -352,12 +352,19 @@ custom_css = """
         }
     }
 
-    @media (max-width: 768px) {
-        .glass-panel,
-        .feature-card {
-            height: auto;
-            min-height: 320px;
+    @media (max-width: 900px) {
+        .glass-panel {
+            min-height: unset;
             padding: 1.5rem;
+        }
+
+        .feature-card {
+            min-height: unset;
+            padding: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
         }
 
         .eyebrow {
