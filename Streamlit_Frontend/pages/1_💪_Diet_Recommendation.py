@@ -87,7 +87,11 @@ class Person:
                 recommended_nutrition[8] = rnd(50,175)
                 
             generator=Generator(recommended_nutrition)
-            recommended_recipes=generator.generate().json()['output']
+            response=generator.generate()
+            if response is None:
+                st.error("Could not get recommendations from backend. Please try again.")
+                return []
+            recommended_recipes=response.json()['output']
             recommendations.append(recommended_recipes)
         for recommendation in recommendations:
             for recipe in recommendation:

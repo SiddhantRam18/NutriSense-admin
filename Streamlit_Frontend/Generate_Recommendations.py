@@ -25,7 +25,7 @@ class Generator:
             response=requests.post(
                 f"{BACKEND_URL}/predict/",
                 json=payload,
-                timeout=30
+                timeout=90
             )
             if response.status_code == 200:
                 return response
