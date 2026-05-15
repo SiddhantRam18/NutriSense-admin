@@ -20,7 +20,6 @@ class Generator:
             payload={
                 'nutrition_input':self.nutrition_input,
                 'ingredients':self.ingredients,
-                'params':self.params
             }
             response=requests.post(
                 f"{BACKEND_URL}/predict/",
