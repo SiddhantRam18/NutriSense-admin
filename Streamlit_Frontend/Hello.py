@@ -44,6 +44,35 @@ custom_css = """
         background: transparent;
     }
 
+    /* Equal-height columns */
+    [data-testid="stHorizontalBlock"] {
+        align-items: stretch !important;
+    }
+
+    [data-testid="stColumn"] {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    [data-testid="stColumn"] > div,
+    [data-testid="stColumn"] > div > div,
+    [data-testid="stColumn"] > div > div > div,
+    [data-testid="stColumn"] [data-testid="stVerticalBlock"] {
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    [data-testid="stColumn"] [data-testid="stMarkdownContainer"] {
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    .glass-panel {
+        flex: 1 !important;
+    }
+
     [data-testid="stToolbar"] {
         right: 1rem;
     }
@@ -104,7 +133,6 @@ custom_css = """
 
     .glass-panel {
         min-height: 360px;
-        height: auto;
         border-radius: 28px;
         padding: clamp(1.4rem, 2.5vw, 2.65rem);
         display: flex;
