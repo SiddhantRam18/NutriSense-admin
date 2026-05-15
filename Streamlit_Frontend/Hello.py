@@ -364,6 +364,16 @@ custom_css = """
     }
 
     @media (max-width: 900px) {
+        .hero-row {
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .hero-row .glass-panel {
+            flex: none;
+            width: 100%;
+        }
+
         .glass-panel {
             min-height: unset;
             padding: 1.5rem;
@@ -383,7 +393,39 @@ custom_css = """
         }
 
         .hero-main {
-            margin-top: 3.5rem;
+            margin-top: 1.2rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 7vw, 2.7rem);
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 5.5vw, 2rem);
+        }
+
+        .rotating-line {
+            font-size: clamp(0.9rem, 3.5vw, 1.05rem);
+        }
+
+        .rotating-window {
+            min-width: 10rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .hero-row {
+            gap: 0.8rem;
+        }
+
+        .glass-panel {
+            padding: 1.2rem;
+            border-radius: 18px;
+        }
+
+        .feature-card {
+            padding: 1.2rem;
+            border-radius: 16px;
         }
     }
 </style>
