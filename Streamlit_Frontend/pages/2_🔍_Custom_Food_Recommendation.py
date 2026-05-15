@@ -21,6 +21,10 @@ class Recommendation:
         ingredients=self.ingredient_txt.split(';')
         generator=Generator(self.nutrition_list,ingredients,params)
         recommendations=generator.generate()
+        
+        if recommendations is None:
+            return None
+            
         recommendations = recommendations.json()['output']
         if recommendations!=None:              
             for recipe in recommendations:
@@ -33,7 +37,7 @@ class Display:
 
     def display_recommendation(self,recommendations):
         st.subheader('Recommended recipes:')
-        if recommendations!=None:
+        if recommendations is not None:
             rows=len(recommendations)//5
             for column,row in zip(st.columns(5),range(5)):
                 with column:
@@ -63,10 +67,12 @@ class Display:
                                 - Preparation Time: {recipe['PrepTime']}min
                                 - Total Time      : {recipe['TotalTime']}min
                             """)                       
+        elif recommendations is None and st.session_state.generated:
+            st.error('Could not get recommendations from backend. Please try again.')
         else:
-            st.info('Couldn\'t find any recipes with the specified ingredients', icon="🙁")
+            st.info('No recommendations generated yet. Fill the form and click Generate.', icon="ℹ️")
     def display_overview(self,recommendations):
-        if recommendations!=None:
+        if recommendations is not None:
             st.subheader('Overview:')
             col1,col2,col3=st.columns(3)
             with col2:
