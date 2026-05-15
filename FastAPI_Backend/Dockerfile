@@ -37,6 +37,6 @@ ENV MALLOC_MMAP_MAX_=65536
 # GC settings for lower memory footprint
 ENV PYTHONGC_ENABLE=1
 
-EXPOSE 8080
+EXPOSE 7860
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080", "--workers", "1", "--timeout-keep-alive", "5"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "7860", "--workers", "1", "--timeout-keep-alive", "5"]

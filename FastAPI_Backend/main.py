@@ -65,16 +65,16 @@ def load_dataset():
             return dataset
             
         try:
-            data_path = '/app/Data/dataset_small.csv.gz'
+            data_path = '/app/Data/dataset.csv'
             if os.path.exists(data_path):
                 print("Loading dataset...")
                 dataset = pd.read_csv(data_path, compression='gzip')
                 dataset_loaded = True
-                print(f"Dataset loaded: {dataset.shape}, memory: {dataset.memory_usage(deep=True).sum()//1024//1024} MB")
+                print(f"Dataset loaded: {dataset.shape}")
                 gc.collect()
                 return dataset
             else:
-                print(f"Warning: Dataset not found at {data_path} — ensure dataset_small.csv.gz is in /app/Data/")
+                print(f"Warning: Dataset not found at {data_path}")
                 dataset_loaded = True
                 return None
         except Exception as e:
