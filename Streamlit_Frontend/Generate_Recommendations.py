@@ -30,7 +30,7 @@ class Generator:
             if response.status_code == 200:
                 return response
             else:
-                st.error(f"Backend error: {response.status_code}")
+                st.error(f"Backend error: {response.status_code} — {response.text}")
                 return None
         except Exception as e:
             st.error(f"Failed to connect to backend: {str(e)}")

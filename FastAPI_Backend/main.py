@@ -24,14 +24,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-class params(BaseModel):
+class PredictionParams(BaseModel):
     n_neighbors: int = 5
     return_distance: bool = False
 
 class PredictionIn(BaseModel):
     nutrition_input: Annotated[list[float], Field(min_length=9, max_length=9)]
     ingredients: list[str] = []
-    params: Optional[params] = None
+    params: Optional[PredictionParams] = None
 
 class Recipe(BaseModel):
     Name: str
@@ -106,7 +106,7 @@ def update_item(prediction_input: PredictionIn):
             data,
             prediction_input.nutrition_input,
             prediction_input.ingredients,
-            prediction_input.params.dict() if prediction_input.params else {'n_neighbors': 5, 'return_distance': False}
+            prediction_input.params.model_dump() if prediction_input.params else {'n_neighbors': 5, 'return_distance': False}
         )
         output = output_recommended_recipes(recommendation_dataframe)
         

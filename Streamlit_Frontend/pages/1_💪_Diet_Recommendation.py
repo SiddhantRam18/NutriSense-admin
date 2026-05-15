@@ -163,7 +163,9 @@ class Display:
                                 - Total Time      : {recipe['TotalTime']}min
                             """)                       
 
-    def display_meal_choices(self,person,recommendations):    
+    def display_meal_choices(self,person,recommendations):
+        if not recommendations:
+            return
         st.subheader('Choose your meal composition:')
         # Display meal compositions choices
         if len(recommendations)==3:
@@ -294,6 +296,7 @@ if generated:
 if st.session_state.generated:
     with st.container():
         display.display_recommendation(st.session_state.person,st.session_state.recommendations)
-        st.success('Recommendation Generated Successfully !', icon="✅")
+        if st.session_state.recommendations:
+            st.success('Recommendation Generated Successfully !', icon="✅")
     with st.container():
         display.display_meal_choices(st.session_state.person,st.session_state.recommendations)
