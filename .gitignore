@@ -1,6 +1,7 @@
 __pycache__/
 *.pyc
 *.log
+Streamlit_Frontend/.Streamlit/secrets.toml
 FastAPI_Backend/test.py
 FastAPI_Backend/keys.py
 FastAPI_Backend/data.py
