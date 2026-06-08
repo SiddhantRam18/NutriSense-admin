@@ -1,8 +1,8 @@
+import os
 import requests
 import streamlit as st
-import json
 
-BACKEND_URL = st.secrets.get("backend_url", "http://localhost:8080")
+BACKEND_URL = os.environ.get("BACKEND_URL") or st.secrets.get("backend_url", "http://localhost:8080")
 
 class Generator:
     def __init__(self,nutrition_input:list,ingredients:list=[],params:dict={'n_neighbors':5,'return_distance':False}):

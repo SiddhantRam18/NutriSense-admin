@@ -6,6 +6,8 @@ services:
     image: frontend:latest
     ports:
       - 8501:8501
+    environment:
+      - BACKEND_URL=http://backend:7860
     networks:
       - project_network
     depends_on:

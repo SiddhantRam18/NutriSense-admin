@@ -1,10 +1,19 @@
 import streamlit as st
 from Generate_Recommendations import Generator
+from grainient_bg import add_grainient_background
 from ImageFinder.ImageFinder import get_images_links as find_image
 import pandas as pd
 from streamlit_echarts import st_echarts
 
 st.set_page_config(page_title="Custom Food Recommendation", page_icon="🔍",layout="wide")
+add_grainient_background(
+    color1="#9fffe4",
+    color2="#274cff",
+    color3="#B497CF",
+    timeSpeed=0.25,
+    contrast=1.5,
+    saturation=1.0,
+)
 nutrition_values=['Calories','FatContent','SaturatedFatContent','CholesterolContent','SodiumContent','CarbohydrateContent','FiberContent','SugarContent','ProteinContent']
 if 'generated' not in st.session_state:
     st.session_state.generated = False

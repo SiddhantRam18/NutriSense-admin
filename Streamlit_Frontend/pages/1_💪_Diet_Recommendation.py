@@ -1,11 +1,20 @@
 import streamlit as st
 import pandas as pd
 from Generate_Recommendations import Generator
+from grainient_bg import add_grainient_background
 from random import uniform as rnd
 from ImageFinder.ImageFinder import get_images_links as find_image
 from streamlit_echarts import st_echarts
 
 st.set_page_config(page_title="Nutrisense - Automatic Diet Recommendation", page_icon="💪",layout="wide")
+add_grainient_background(
+    color1="#9fffe4",
+    color2="#274cff",
+    color3="#B497CF",
+    timeSpeed=0.25,
+    contrast=1.5,
+    saturation=1.0,
+)
 
 
 

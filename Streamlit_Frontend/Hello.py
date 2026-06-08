@@ -1,4 +1,5 @@
 import streamlit as st
+from grainient_bg import add_grainient_background
 
 
 st.set_page_config(
@@ -8,6 +9,14 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+add_grainient_background(
+    color1="#9fffe4",
+    color2="#274cff",
+    color3="#B497CF",
+    timeSpeed=0.25,
+    contrast=1.5,
+    saturation=1.0,
+)
 
 custom_css = """
 <style>
@@ -19,10 +28,7 @@ custom_css = """
     }
 
     .stApp {
-        background:
-            radial-gradient(circle at 78% 12%, rgba(20, 184, 166, 0.18), transparent 30%),
-            radial-gradient(circle at 18% 18%, rgba(37, 99, 235, 0.22), transparent 34%),
-            linear-gradient(135deg, #09070d 0%, #0b1020 48%, #061520 100%);
+        background: transparent;
         color: #f8fafc;
     }
 

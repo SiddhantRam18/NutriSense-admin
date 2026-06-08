@@ -1,4 +1,6 @@
-__pycache__
+__pycache__/
+*.pyc
+*.log
 FastAPI_Backend/test.py
 FastAPI_Backend/keys.py
 FastAPI_Backend/data.py
