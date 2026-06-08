@@ -80,38 +80,44 @@ class Display:
             st.error('Could not get recommendations from backend. Please try again.')
         else:
             st.info('No recommendations generated yet. Fill the form and click Generate.', icon="ℹ️")
-    def display_overview(self,recommendations):
-        if recommendations is not None:
-            st.subheader('Overview:')
-            col1,col2,col3=st.columns(3)
-            with col2:
-                selected_recipe_name=st.selectbox('Select a recipe',[recipe['Name'] for recipe in recommendations])
-            st.markdown(f'<h5 style="text-align: center;font-family:sans-serif;">Nutritional Values:</h5>', unsafe_allow_html=True)
-            for recipe in recommendations:
-                if recipe['Name']==selected_recipe_name:
-                    selected_recipe=recipe
-            options = {
-        "title": {"text": "Nutrition values", "subtext": f"{selected_recipe_name}", "left": "center"},
-        "tooltip": {"trigger": "item"},
-        "legend": {"orient": "vertical", "left": "left",},
-        "series": [
-            {
-                "name": "Nutrition values",
-                "type": "pie",
-                "radius": "50%",
-                "data": [{"value":selected_recipe[nutrition_value],"name":nutrition_value} for nutrition_value in self.nutrition_values],
-                "emphasis": {
-                    "itemStyle": {
-                        "shadowBlur": 10,
-                        "shadowOffsetX": 0,
-                        "shadowColor": "rgba(0, 0, 0, 0.5)",
-                    }
-                },
-            }
-        ],
-    }
-            st_echarts(options=options, height="600px",)
-            st.caption('You can select/deselect an item (nutrition value) from the legend.')
+    def display_overview(self, recommendations):
+        if not recommendations:
+            return
+        st.subheader('Overview:')
+        names = [recipe['Name'] for recipe in recommendations if recipe.get('Name')]
+        if not names:
+            return
+        col1, col2, col3 = st.columns(3)
+        with col2:
+            selected_recipe_name = st.selectbox('Select a recipe', names)
+        selected_recipe = next(
+            (r for r in recommendations if r.get('Name') == selected_recipe_name), None
+        )
+        if selected_recipe is None:
+            return
+        st.markdown(f'<h5 style="text-align: center;font-family:sans-serif;">Nutritional Values:</h5>', unsafe_allow_html=True)
+        options = {
+            "title": {"text": "Nutrition values", "subtext": f"{selected_recipe_name}", "left": "center"},
+            "tooltip": {"trigger": "item"},
+            "legend": {"orient": "vertical", "left": "left"},
+            "series": [
+                {
+                    "name": "Nutrition values",
+                    "type": "pie",
+                    "radius": "50%",
+                    "data": [{"value": selected_recipe.get(nv, 0), "name": nv} for nv in self.nutrition_values],
+                    "emphasis": {
+                        "itemStyle": {
+                            "shadowBlur": 10,
+                            "shadowOffsetX": 0,
+                            "shadowColor": "rgba(0, 0, 0, 0.5)",
+                        }
+                    },
+                }
+            ],
+        }
+        st_echarts(options=options, height="600px")
+        st.caption('You can select/deselect an item (nutrition value) from the legend.')
 
 title="<h1 style='text-align: center;'>Custom Food Recommendation</h1>"
 st.markdown(title, unsafe_allow_html=True)
