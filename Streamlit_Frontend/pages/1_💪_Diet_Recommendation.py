@@ -273,9 +273,9 @@ title="<h1 style='text-align: center;'>Automatic Diet Recommendation</h1>"
 st.markdown(title, unsafe_allow_html=True)
 with st.form("recommendation_form"):
     st.write("Modify the values and click the Generate button to use")
-    age = st.number_input('Age',min_value=2, max_value=120, step=1)
-    height = st.number_input('Height(cm)',min_value=50, max_value=300, step=1)
-    weight = st.number_input('Weight(kg)',min_value=10, max_value=300, step=1)
+    age = st.number_input('Age', min_value=10, max_value=100, step=1)
+    height = st.number_input('Height (cm)', min_value=100, max_value=250, step=1)
+    weight = st.number_input('Weight (kg)', min_value=20, max_value=300, step=1)
     gender = st.radio('Gender',('Male','Female'))
     activity = st.select_slider('Activity',options=['Little/no exercise', 'Light exercise', 'Moderate exercise (3-5 days/wk)', 'Very active (6-7 days/wk)', 
     'Extra active (very active & physical job)'])
@@ -291,16 +291,23 @@ with st.form("recommendation_form"):
         meals_calories_perc={'breakfast':0.30,'morning snack':0.05,'lunch':0.40,'afternoon snack':0.05,'dinner':0.20}
     generated = st.form_submit_button("Generate")
 if generated:
-    st.session_state.generated=True
-    person = Person(age,height,weight,gender,activity,meals_calories_perc,weight_loss)
-    with st.container():
-        display.display_bmi(person)
-    with st.container():
-        display.display_calories(person)
-    with st.spinner('Generating recommendations...'):     
-        recommendations=person.generate_recommendations()
-        st.session_state.recommendations=recommendations
-        st.session_state.person=person
+    bmi_check = round(weight / ((height / 100) ** 2), 2)
+    if bmi_check < 10 or bmi_check > 70:
+        st.error(
+            f"The combination you entered (height {height} cm, weight {weight} kg) produces an "
+            f"unrealistic BMI of {bmi_check} kg/m². Please enter valid measurements."
+        )
+    else:
+        st.session_state.generated = True
+        person = Person(age, height, weight, gender, activity, meals_calories_perc, weight_loss)
+        with st.container():
+            display.display_bmi(person)
+        with st.container():
+            display.display_calories(person)
+        with st.spinner('Generating recommendations...'):
+            recommendations = person.generate_recommendations()
+            st.session_state.recommendations = recommendations
+            st.session_state.person = person
 
 if st.session_state.generated:
     with st.container():

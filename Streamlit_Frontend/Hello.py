@@ -256,12 +256,17 @@ custom_css = """
     }
 
     .nav-link,
+    a.nav-link,
+    a.nav-link:link,
+    a.nav-link:visited,
+    a.nav-link:hover,
+    a.nav-link:active,
     .stButton > button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
         width: 100%;
-        color: #f8fafc;
+        color: #ffffff !important;
         background: rgba(255, 255, 255, 0.12);
         border: 1px solid rgba(255, 255, 255, 0.28);
         border-radius: 10px;
@@ -274,8 +279,9 @@ custom_css = """
     }
 
     .nav-link:hover,
+    a.nav-link:hover,
     .stButton > button:hover {
-        color: #ffffff;
+        color: #ffffff !important;
         transform: translateY(-2px);
         border-color: rgba(255, 255, 255, 0.5);
         box-shadow: 0 20px 48px rgba(0, 0, 0, 0.34);
